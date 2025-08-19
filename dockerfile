@@ -5,6 +5,10 @@ WORKDIR /app
 # Copy all files
 COPY . .
 
+# Install assembly
+RUN npm install -g assemblyscript
+RUN npx asinit .
+
 # Install pnpm globally
 RUN npm install -g pnpm
 
@@ -16,6 +20,9 @@ RUN cd ui && npm install
 
 # Build the entire project including UI
 RUN pnpm run build
+
+# Build assembly
+RUN npm run asbuild
 
 # Expose port
 EXPOSE 3456
