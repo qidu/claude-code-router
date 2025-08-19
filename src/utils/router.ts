@@ -139,7 +139,8 @@ const getUseModel = async (
   return config.Router!.default;
 };
 
-export const router = async (req: any, _res: any, config: any) => {
+export function router = async (req: any, _res: any, config: any) => {
+// export const router = async (req: any, _res: any, config: any) => {
   // Parse sessionId from metadata.user_id
   if (req.body.metadata?.user_id) {
     const parts = req.body.metadata.user_id.split("_session_");
