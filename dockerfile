@@ -9,6 +9,18 @@ COPY . .
 RUN npm install -g assemblyscript
 RUN npx asinit .
 
+# copy files
+DIR assembly
+COPY src/utils/router.ts assembly/router.ts
+
+#// asconfig.json
+#{
+#  "target": "node",
+#  "optimizeLevel": 3,
+#  "runtime": "stub"
+#}
+
+
 # Install pnpm globally
 RUN npm install -g pnpm
 
