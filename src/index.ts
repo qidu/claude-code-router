@@ -4,7 +4,7 @@ import { homedir } from "os";
 import path, { join } from "path";
 import { initConfig, initDir, cleanupLogFiles } from "./utils";
 import { createServer } from "./server";
-import { router } from "./utils/router";
+// import { router } from "./utils/router";
 import { apiKeyAuth } from "./middleware/auth";
 import {
   cleanupPidFile,
@@ -16,6 +16,9 @@ import createWriteStream from "pino-rotating-file-stream";
 import { HOME_DIR } from "./constants";
 import { configureLogging } from "./utils/log";
 import { sessionUsageCache } from "./utils/cache";
+
+// cli.js
+const wasmRouter = require('./build/router.js');
 
 async function initializeClaudeConfig() {
   const homeDir = homedir();
@@ -130,7 +133,8 @@ async function run(options: RunOptions = {}) {
   });
   server.addHook("preHandler", async (req, reply) => {
     if (req.url.startsWith("/v1/messages")) {
-      router(req, reply, config);
+      // router(req, reply, config);
+      wasmRouter.router(req, reply, config);
     }
   });
   server.addHook("onSend", async (req, reply, payload) => {
